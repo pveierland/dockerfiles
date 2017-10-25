@@ -1,7 +1,7 @@
 FROM gcr.io/tensorflow/tensorflow:latest-gpu
 MAINTAINER Per Magnus Veierland <pveierland@gmail.com>
 
-ENV PYTHONPATH=$PYTHONPATH:/tensorflow/tensorflow/models/research:/tensorflow/tensorflow/models/research/slim
+ENV PYTHONPATH=$PYTHONPATH:/vii_util:/tensorflow/tensorflow/models/research:/tensorflow/tensorflow/models/research/slim
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git protobuf-compiler && \
@@ -11,11 +11,6 @@ RUN apt-get update && \
     mkdir /tensorflow && \
     cd /tensorflow && \
     git clone https://github.com/tensorflow/tensorflow.git . && \
-    rm -rf .git && \
-    cd tensorflow && \
-    git clone https://github.com/tensorflow/models.git && \
-    cd models && \
-    rm -rf .git && \
-    protoc object_detection/protos/*.proto --python_out=.
+    rm -rf .git
 
 RUN pip install pymongo pyyaml tqdm
